@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmer la Suppression</title>
+</head>
+<body>
+    <h1>Confirmer la Suppression</h1>
+    <p>Êtes-vous sûr de vouloir supprimer l'utilisateur suivant ?</p>
+    <ul>
+        <li><strong>Nom :</strong> {{ user.first_name }} {{ user.last_name }}</li>
+        <li><strong>Email :</strong> {{ user.email }}</li>
+        <li><strong>Téléphone :</strong> {{ user.phone }}</li>
+    </ul>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+        <a href="{% url 'accounts:liste_users' %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+     
+{% endblock %}
+{% block tilte %}
+<title>Solution Digital</title>
+{% endblock %} 
+{% block content %}
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Prénom d'utilisateur</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Date d'inscription</th>
+            <th>Admin</th>
+            <th>Staff</th>
+            <th>Est actif</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.date_joined }}</td>
+                <td>{{ user.is_admin }}</td>
+                <td>{{ user.is_staff }}</td>
+                <td>{{ user.is_active|yesno:"Oui,Non" }}</td>
+                <td><a href="{% url 'accounts:modifier_user' user.id %}" class="btn btn-primary btn-sm">Modifier</a></td>
+                <td>
+                    <form action="{% url 'accounts:supprimer_user' user.id %}" method="get">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">Aucun utilisateur trouvé.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %} 

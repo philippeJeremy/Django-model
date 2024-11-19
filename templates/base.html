@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="{% static 'css/base.css' %}" /> -->
+    {% block css %} {% endblock %}
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    {% block title %} 
+    {% endblock %}
+  </head>
+  <body id="gridBody" class="{{ page }}">
+    <header class="container-navigation " id="navigation">
+        {% if request.path != "/" %}
+          <li><a href="{% url 'home' %}" class="{{ lien }}">Retour à l'accueil</a></li>
+        {% endif %}
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'accounts:profile' %}" class="{{ lien }}">Profil</a></li>
+          <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display: none;">
+        {% csrf_token %}
+          </form>
+          <li><a href="#" onclick="document.getElementById('logoutForm').submit();">Déconnexion</a></li>
+        {% else %}
+          <li><a href="{% url 'accounts:login' %}" class="{{ lien }}">Connection</a></li>
+          <li><a href="{% url 'accounts:signup' %}" class="{{ lien }}">Inscription</a></li>
+        {% endif %}
+    </header>
+    <main>
+      {% block content %} {% endblock %}
+    </main>
+    
+  </body>
+  <!-- <script src="{% static 'js/index.js' %}"></script> -->
+</html>

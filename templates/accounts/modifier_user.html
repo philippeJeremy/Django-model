@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+     
+{% endblock %}
+{% block tilte %}
+<title>Solution Digital</title>
+{% endblock %} 
+{% block content %}
+<h1>Modifier l'utilisateur {{ user.username }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+        <a href="{% url 'accounts:liste_users' %}" class="btn btn-secondary">Annuler</a>
+    </form>
+    {% endblock %} 

@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/connexion.css' %}" />   
+{% endblock %}
+{% block tilte %}
+    <title>Solution Digital</title>
+{% endblock %} 
+{% block content %}
+<div class="login-container">
+    <div class="login-main">
+    <form method="POST" class="form-login">
+        <div class="text">Page de connection</div>
+        <div class="form-row">
+            {% csrf_token %} 
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field }}
+                    <div class="underline"></div>
+                    {{ field.label_tag }}
+                    {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+                <button type="submit" class="button-63">Valider</button>
+                <a class="lien-login" href="{% url 'accounts:signup' %}">Inscription</a>
+                <a class="lien-login" href="{% url 'password_reset' %}">Mot de passe oublié</a>
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}
