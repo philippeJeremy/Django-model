@@ -7,11 +7,15 @@
 <title>Solution Digital</title>
 {% endblock %}
 {% block content %}
-    <div class="profile-container">
-        <div class="profile-card">
-            <h1>profile</h1>
-            <p class="profile">Nom d'utilisateur : {{ user.name }}</p>
-            <p class="profile">Email : {{ user.email }}</p>
-        </div>
-    </div>
+<h1>Modifier vos informations personnelles</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Mettre à jour</button>
+</form>
+
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
 {% endblock %}

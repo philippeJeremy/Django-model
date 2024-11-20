@@ -1,36 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% load static %}
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/acceuil.css' %}" />   
+    <link rel="stylesheet" href="{% static 'css/connexion.css' %}" />   
 {% endblock %}
 {% block tilte %}
-<title>Solution Digital</title>
+    <title>Solution Digital</title>
 {% endblock %} 
 {% block content %}
-<div class="container-home">
-    <div class="photo"></div>
-    <div class="titre">
-       <h1>Location maison belle île en mer</h1> 
-    </div>
-    <div class="maison1">
-        <div class="card">
-          <img src="{% static 'img/image.png' %}" alt="Photo Maison 1">
-          <h3>Maison 1</h3>
-        </div>
-      </div>
-      <div class="maison2">
-        <div class="card">
-          <img src="{% static 'img/image.png' %}" alt="Photo Maison 2">
-          <h3>Maison 2</h3>
-        </div>
-      </div>
-      <div class="maison3">
-        <div class="card">
-          <img src="{% static 'img/image.png' %}" alt="Photo Maison 3">
-          <h3>Maison 3</h3>
-        </div>
-      </div>
-</div>
 
-    
 {% endblock %}
