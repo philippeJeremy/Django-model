@@ -7,55 +7,97 @@ from django.contrib.auth.views import LoginView, PasswordResetView
 
 from .forms import RegistrationForm, UserUpdateForm
 
+
 class SignupView(CreateView):
-    form_class = RegistrationForm
+    """
+    View for user registration (sign up).
+    """
+    form_class = RegistrationForm  # Form used for registration
+    # Template for rendering the sign-up page
     template_name = 'accounts/signup.html'
-    success_url = reverse_lazy('home')  # Remplacez par votre URL de redirection
+    success_url = reverse_lazy('home')  # Redirect URL after successful sign-up
 
     def get_context_data(self, **kwargs):
+        """
+        Add additional context data for rendering the sign-up page.
+        """
         context = super().get_context_data(**kwargs)
+        # Additional context for page identification
         context['page'] = 'signup'
+        # Additional context for link identification
         context['lien'] = 'lien_signup'
         return context
 
+
 class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'accounts/profile.html'
+    """
+    View for user profile page.
+    Requires login.
+    """
+    template_name = 'accounts/profile.html'  # Template for rendering the profile page
 
     def get_context_data(self, **kwargs):
+        """
+        Add additional context data for rendering the profile page.
+        """
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
+        context['user'] = self.request.user  # Current logged-in user
+        # Additional context for page identification
         context['page'] = 'profile'
+        # Additional context for link identification
         context['lien'] = 'lien_profile'
-        return context 
+        return context
+
 
 class ModifierProfileView(LoginRequiredMixin, UpdateView):
-    model = get_user_model()  # Si vous utilisez un modèle utilisateur personnalisé
-    form_class = UserUpdateForm
+    """
+    View for updating user profile information.
+    Requires login and updates the current user's information.
+    """
+    model = get_user_model()  # User model for updating user information
+    form_class = UserUpdateForm  # Form used for updating user profile
+    # Template for rendering the profile update page
     template_name = 'accounts/modifier_profile.html'
-    success_url = reverse_lazy('accounts:profile')  # Redirige vers la page de profil
+    # Redirect URL after successful profile update
+    success_url = reverse_lazy('accounts:profile')
 
     def get_object(self):
-        return self.request.user  # Charge l'utilisateur connecté
+        """
+        Get the current user object for updating.
+        """
+        return self.request.user  # Return the current logged-in user object
 
 
 class LoginViewCustom(LoginView):
-    template_name = 'registration/login.html'
-    
+    """
+    Custom login view.
+    """
+    template_name = 'registration/login.html'  # Template for rendering the custom login page
+
     def get_context_data(self, **kwargs):
+        """
+        Add additional context data for rendering the custom login page.
+        """
         extra_context = super().get_context_data(**kwargs)
-        extra_context = {"page" : "login", "lien": "lien_login"}
-        extra_context['form'] = self.get_form()
+        # Additional context for page and link identification
+        extra_context = {"page": "login", "lien": "lien_login"}
+        extra_context['form'] = self.get_form()  # Form instance for login
         return extra_context
-    
+
+
 class PasswordResetViewCustom(PasswordResetView):
-    template_name = 'registration/password_reset_form.html'
-    
+    """
+    Custom password reset view.
+    """
+    template_name = 'registration/password_reset_form.html'  # Template for rendering the custom password reset page
+
     def get_context_data(self, **kwargs):
+        """
+        Add additional context data for rendering the custom password reset page.
+        """
         extra_context = super().get_context_data(**kwargs)
-        extra_context = {"page" : "password"}
+        # Additional context for page identification
+        extra_context = {"page": "password"}
+        # Form instance for password reset
         extra_context['form'] = self.get_form()
         return extra_context
-    
-    
-
-
